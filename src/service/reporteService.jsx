@@ -1,5 +1,4 @@
-// src/services/reporteService.js
-const API_URL = "http://localhost:8081/api/reportes";
+const API_URL = "http://localhost:8080/api/reportes";
 
 export const enviarReporteIncendio = async (reporte) => {
     const datosParaEnviar = {
