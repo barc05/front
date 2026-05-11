@@ -1,4 +1,3 @@
-// src/pages/Home.jsx
 import React, { useState, useEffect } from "react";
 import { Container, Form, Button, Alert } from 'react-bootstrap';
 import { obtenerUbicacionActual } from "../utils/geo";
