@@ -6,12 +6,30 @@ import { useNavigate } from 'react-router-dom';
 import { enviarReporteIncendio } from "../service/reporteService";
 
 export default function Home() {
+    const navigate = useNavigate();
     const [reporte, setReporte] = useState({
         latitud: "",
         longitud: "",
         tipoIncendio: "Forestal"
     });
     const [mensaje, setMensaje] = useState({ texto: "", tipo: "" });
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        
+        if (!token) {
+            setMensaje({ texto: "Acceso denegado. Inicia sesión para reportar un incidente.", tipo: "danger" });
+            
+            // Si no está logueado, lo expulsa al Login después de 2 segundos
+            setTimeout(() => {
+                navigate('/login');
+            }, 2000);
+            return;
+        }
+
+        // Si está logueado, procede a buscar su ubicación GPS
+        capturarUbicacion();
+    }, [navigate]);
 
     // Permite cambiar el tipo de incendio en el Select
     const handleChange = (e) => {
