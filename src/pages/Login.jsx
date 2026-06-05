@@ -22,7 +22,7 @@ export default function Login() {
 
         try {
             // 2. CONEXIÓN AL API GATEWAY
-            const response = await fetch('https://ms-deteccion-y-reporte.onrender.com/api/usuarios/login', {
+            const response = await fetch('https://api-gateway-1w1b.onrender.com/api/v1/usuarios', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password }),
