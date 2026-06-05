@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { Container, Form, Button, Alert } from 'react-bootstrap';
 import { obtenerUbicacionActual } from "../utils/geo";
+import { useNavigate } from 'react-router-dom';
 import { enviarReporteIncendio } from "../service/reporteService";
 
 export default function Home() {
@@ -12,7 +13,7 @@ export default function Home() {
     });
     const [mensaje, setMensaje] = useState({ texto: "", tipo: "" });
 
-    // FUNCIÓN CRÍTICA: Permite cambiar el tipo de incendio en el Select
+    // Permite cambiar el tipo de incendio en el Select
     const handleChange = (e) => {
         const { name, value } = e.target;
         setReporte((prev) => ({
