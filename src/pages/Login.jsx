@@ -3,6 +3,8 @@ import { Container, Form, Button, Alert, Card } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
+    e.preventDefault();
+    
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [mensaje, setMensaje] = useState({ texto: '', tipo: '' });
