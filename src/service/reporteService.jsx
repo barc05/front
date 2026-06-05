@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:8080/api/reportes";
+const API_URL = "https://api-gateway-1w1b.onrender.com/api/reportes";
 
 export const enviarReporteIncendio = async (reporte) => {
     const datosParaEnviar = {

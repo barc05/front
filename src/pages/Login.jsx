@@ -22,7 +22,7 @@ export default function Login() {
 
         try {
             // 2. CONEXIÓN AL API GATEWAY
-            const response = await fetch('http://localhost:8080/auth/login', {
+            const response = await fetch('https://api-gateway-1w1b.onrender.com/api/v1/usuarios', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password }),
@@ -33,8 +33,10 @@ export default function Login() {
                 // 3. GUARDAR EL TOKEN VIP
                 localStorage.setItem('token', data.token);
                 
+                setMensaje({ texto: "¡Inicio de sesión correcto!", tipo: "success" });
+
                 // Redirigimos a la página principal de reportes
-                navigate('/reportar');
+                setTimeout(() => navigate('/'), 1500);
             } else {
                 setMensaje({ texto: 'Credenciales inválidas. Intenta de nuevo.', tipo: 'danger' });
             }
