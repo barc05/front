@@ -19,6 +19,7 @@ export default function Register() {
             return;
         }
 
+        
         try {
             // Mandamos la petición al Gateway
             const response = await fetch('https://api-gateway-1w1b.onrender.com/api/v1/usuarios', {
