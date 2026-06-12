@@ -21,7 +21,7 @@ export default function Register() {
 
         try {
             // Mandamos la petición al Gateway
-            const response = await fetch('https://api-gateway-1w1b.onrender.com/api/v1/usuarios/registrar', {
+            const response = await fetch('https://api-gateway-1w1b.onrender.com/api/v1/usuarios', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username, email, password }),
