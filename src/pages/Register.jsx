@@ -10,35 +10,43 @@ const Register = () => {
   const [success, setSuccess] = useState('');
   const navigate = useNavigate();
 
-  const handleRegister = async (e) => {
-    e.preventDefault();
-    setError('');
-    setSuccess('');
+  const handleSubmit = async (e) => {
+        e.preventDefault();
+        setMensaje({ texto: '', tipo: '' });
 
-    try {
-      // Apuntamos al Gateway usando el prefijo de usuarios
-      const response = await fetch("https://api-gateway-1w1b.onrender.com/api/v1/usuarios/registrar", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, password, email }),
-      });
+        // 1. VALIDACIÓN EN FRONTEND
+        if (!username.trim() || !email.trim() || !password.trim()) {
+            setMensaje({ texto: 'Por favor, completa todos los campos.', tipo: 'warning' });
+            return;
+        }
 
-      const data = await response.json();
+        try {
+            // 2. PETICIÓN AL GATEWAY (Apuntando a la ruta que maneja tu microservicio)
+            // NOTA: Si tu controlador usa "/registrar", déjalo así. Si usa la raíz, quita "/registrar".
+            const response = await fetch('https://api-gateway-1w1b.onrender.com/api/v1/usuarios/registrar', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, email, password }),
+            });
 
-      if (response.ok) {
-        setSuccess('¡Usuario registrado con éxito! Redirigiendo al login...');
-        setTimeout(() => {
-          navigate('/login'); // Te manda al login tras 2 segundos
-        }, 2000);
-      } else {
-        setError(data.message || 'Error al registrar el usuario');
-      }
-    } catch (err) {
-      setError('Error al conectar con el servidor');
-    }
-  };
+            if (response.ok) {
+                setMensaje({ texto: '¡Usuario registrado con éxito! Redirigiendo al Login...', tipo: 'success' });
+                // Redirigir al login después de 2 segundos
+                setTimeout(() => navigate('/login'), 2000);
+            } else {
+                // 3. LEER EL ERROR DE FORMA SEGURA (Evita que la pantalla no haga nada)
+                try {
+                    const data = await response.json();
+                    setMensaje({ texto: data.message || 'Error al registrar el usuario.', tipo: 'danger' });
+                } catch (jsonError) {
+                    // Si el backend responde texto plano en vez de JSON
+                    setMensaje({ texto: 'Error en el registro (Código ' + response.status + ').', tipo: 'danger' });
+                }
+            }
+        } catch (error) {
+            setMensaje({ texto: 'Error al conectar con el servidor.', tipo: 'danger' });
+        }
+    };
 
   return (
     <div style={{ maxWidth: '400px', margin: '50px auto', padding: '20px', border: '1px solid #ccc', borderRadius: '5px' }}>
