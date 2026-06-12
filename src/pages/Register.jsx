@@ -22,22 +22,22 @@ export default function Register() {
         
         try {
             // Mandamos la petición al Gateway
-            const response = await fetch('https://api-gateway-1w1b.onrender.com/api/v1/usuarios', {
+            const response = await fetch('https://api-gateway-1w1b.onrender.com/api/v1/usuarios/login', { 
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username, email, password }),
+                body: JSON.stringify({ 
+                correo: email,        
+                contraseña: password  
+                }),
             });
-
             if (response.ok) {
-                setMensaje({ texto: '¡Usuario registrado con éxito! Redirigiendo...', tipo: 'success' });
-                setTimeout(() => navigate('/login'), 2000);
+                const data = await response.json();
+                localStorage.setItem('token', data.token);
+    
+                setMensaje({ texto: "¡Inicio de sesión correcto!", tipo: "success" });
+                setTimeout(() => navigate('/'), 1500);
             } else {
-                try {
-                    const data = await response.json();
-                    setMensaje({ texto: data.message || 'Error al registrar.', tipo: 'danger' });
-                } catch (e) {
-                    setMensaje({ texto: 'Error en el servidor (Código ' + response.status + ').', tipo: 'danger' });
-                }
+                setMensaje({ texto: 'Credenciales inválidas. Intenta de nuevo.', tipo: 'danger' });
             }
         } catch (error) {
             setMensaje({ texto: 'Error al conectar con el servidor.', tipo: 'danger' });
