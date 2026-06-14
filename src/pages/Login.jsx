@@ -27,7 +27,10 @@ export default function Login() {
             const response = await fetch('https://api-gateway-1w1b.onrender.com/api/v1/usuarios/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password }),
+                body: JSON.stringify({ 
+                    correo: email,        
+                    contraseña: password  
+                }),
             });
 
             if (response.ok) {
