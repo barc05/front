@@ -46,7 +46,14 @@ export default function Register() {
                 }, 2000);
             } else {
                
-                setMensaje({ texto: 'No se pudo completar el registro (Código ' + response.status + ').', tipo: 'danger' });
+                try {
+                    const data = await response.json();
+                    
+                    setMensaje({ texto: data.message || `Error del servidor (Código ${response.status})`, tipo: 'danger' });
+                } catch (e) {
+                    
+                    setMensaje({ texto: `El servidor rechazó el registro. Código de error: ${response.status}`, tipo: 'danger' });
+                }
             }
         } catch (error) {
            
