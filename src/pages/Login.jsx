@@ -37,6 +37,7 @@ export default function Login() {
                 const data = await response.json();
                 // 3. GUARDAR EL TOKEN VIP
                 localStorage.setItem('token', data.token);
+                localStorage.setItem('correo', data.correo);
                 
                 setMensaje({ texto: "¡Inicio de sesión correcto!", tipo: "success" });
 

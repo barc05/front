@@ -2,11 +2,13 @@ const API_URL = "https://api-gateway-1w1b.onrender.com/api/reportes";
 
 export const enviarReporteIncendio = async (reporte) => {
     const token = localStorage.getItem('token');
+    const correo = localStorage.getItem('correo');
 
     const datosParaEnviar = {
         latitud: parseFloat(reporte.latitud),
         longitud: parseFloat(reporte.longitud),
-        tipoIncendio: reporte.tipoIncendio
+        tipoIncendio: reporte.tipoIncendio,
+        correoUsuario: correo
     };
 
     const response = await fetch(API_URL, {
