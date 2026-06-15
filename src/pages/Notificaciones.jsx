@@ -1,3 +1,4 @@
+// src/pages/Notificaciones.jsx
 import React, { useState, useEffect } from 'react';
 import { Container, Card, ListGroup, Badge, Spinner, Alert } from 'react-bootstrap';
 
@@ -7,22 +8,28 @@ const Notificaciones = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-
         const obtenerNotificaciones = async () => {
-            try {
-                
-                setTimeout(() => {
-                    const datosSimulados = [
-                        { id: 1, tipo: "Alerta de Incendio", mensaje: "Incendio Forestal reportado a 5km de tu ubicación.", fecha: "Hace 10 minutos", estado: "NO_LEIDO" },
-                        { id: 2, tipo: "Reporte Exitoso", mensaje: "Tu reporte de incendio estructural ha sido procesado.", fecha: "Hace 2 horas", estado: "LEIDO" },
-                        { id: 3, tipo: "Sistema", mensaje: "Bienvenido a la plataforma de prevención de incendios Valle.", fecha: "Hace 1 día", estado: "LEIDO" }
-                    ];
-                    setNotificaciones(datosSimulados);
-                    setCargando(false);
-                }, 1000);
+            // Obtenemos el correo del usuario logueado desde el localStorage
+            const correo = localStorage.getItem('correo');
+            
+            if (!correo) {
+                setError("No se pudo identificar al usuario.");
+                setCargando(false);
+                return;
+            }
 
+            try {
+                // LLAMADA REAL A TU MICROSERVICIO
+                const response = await fetch(`https://ms-notificaciones-api.onrender.com/api/notificaciones/mis-alertas/${correo}`);
+                
+                if (!response.ok) throw new Error("Error al obtener alertas");
+                
+                const datos = await response.json();
+                setNotificaciones(datos);
             } catch (err) {
-                setError("No se pudieron cargar las notificaciones.");
+                setError("No se pudieron cargar las notificaciones. Intenta más tarde.");
+                console.error(err);
+            } finally {
                 setCargando(false);
             }
         };
@@ -52,14 +59,16 @@ const Notificaciones = () => {
                             notificaciones.map((noti) => (
                                 <ListGroup.Item 
                                     key={noti.id} 
-                                    className={`p-3 ${noti.estado === 'NO_LEIDO' ? 'bg-light border-start border-danger border-4' : ''}`}
+                                    className={`p-3 ${!noti.leido ? 'bg-light border-start border-danger border-4' : ''}`}
                                 >
                                     <div className="d-flex justify-content-between align-items-center">
                                         <div className="fw-bold">
-                                            {noti.tipo}
-                                            {noti.estado === 'NO_LEIDO' && <Badge bg="danger" className="ms-2">Nueva</Badge>}
+                                            Alerta de Incendio
+                                            {!noti.leido && <Badge bg="danger" className="ms-2">Nueva</Badge>}
                                         </div>
-                                        <small className="text-muted">{noti.fecha}</small>
+                                        <small className="text-muted">
+                                            {new Date(noti.createdAt).toLocaleDateString()}
+                                        </small>
                                     </div>
                                     <p className="mb-0 mt-1 text-secondary">{noti.mensaje}</p>
                                 </ListGroup.Item>
