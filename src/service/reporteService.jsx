@@ -1,10 +1,10 @@
+// src/service/reporteService.jsx
 const API_URL = "https://api-gateway-1w1b.onrender.com/api/reportes";
 
 export const enviarReporteIncendio = async (reporte) => {
     const token = localStorage.getItem('token');
     const correo = localStorage.getItem('correo');
 
-    
     const datosParaEnviar = {
         latitud: parseFloat(reporte.latitud),
         longitud: parseFloat(reporte.longitud),
@@ -12,21 +12,13 @@ export const enviarReporteIncendio = async (reporte) => {
         correoUsuario: correo
     };
 
-    const response = await fetch(`${API_URL}?correo=${correo}`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-        }
-    });
-    
     const response = await fetch(API_URL, {
         method: "POST",
-        headers: { "Content-Type": "application/json",
+        headers: { 
+            "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`
         },
         body: JSON.stringify(datosParaEnviar),
-        
     });
 
     if (!response.ok) {
@@ -38,8 +30,9 @@ export const enviarReporteIncendio = async (reporte) => {
 
 export const obtenerReportes = async () => {
     const token = localStorage.getItem('token');
+    const correo = localStorage.getItem('correo'); 
 
-    const response = await fetch(API_URL, {
+    const response = await fetch(`${API_URL}?correo=${correo}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
