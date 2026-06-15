@@ -8,20 +8,24 @@ const Reportes = () => {
     const [error, setError] = useState('');
 
     useEffect(() => {
-        const cargarReportes = async () => {
-            try {
-                const data = await obtenerReportes();
-                setReportes(data.reverse());
-            } catch (err) {
-                setError(err.message);
-            } finally {
-                setLoading(false);
+    const cargarReportes = async () => {
+        try {
+            const data = await obtenerReportes();
+            
+            if (Array.isArray(data)) {
+                setReportes(data.reverse()); 
+            } else {
+                setReportes([]); 
             }
-        };
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
+    };
 
-        cargarReportes();
-    }, []);
-
+    cargarReportes();
+}, []);
     return (
         <Container className="mt-5">
             <h2 className="mb-4 text-center">Últimos Reportes de Incendios</h2>
@@ -46,7 +50,7 @@ const Reportes = () => {
                             <Col md={6} lg={4} className="mb-4" key={reporte.id || index}>
                                 <Card className="h-100 shadow-sm border-danger">
                                     <Card.Header className="bg-danger text-white fw-bold text-uppercase">
-                                        🔥 {reporte.tipoIncendio}
+                                         {reporte.tipoIncendio}
                                     </Card.Header>
                                     <Card.Body>
                                         <Card.Text>
