@@ -6,6 +6,12 @@ export const obtenerUbicacionActual = () => {
             return;
         }
 
+        const opciones = {
+            enableHighAccuracy: true, 
+            timeout: 10000,           
+            maximumAge: 0             
+        };
+
         navigator.geolocation.getCurrentPosition(
             (position) => {
                 resolve({
@@ -13,7 +19,8 @@ export const obtenerUbicacionActual = () => {
                     longitud: position.coords.longitude.toFixed(6)
                 });
             },
-            (error) => reject(error)
+            (error) => reject(error),
+            opciones
         );
     });
 };
