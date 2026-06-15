@@ -12,6 +12,14 @@ export const enviarReporteIncendio = async (reporte) => {
         correoUsuario: correo
     };
 
+    const response = await fetch(`${API_URL}?correo=${correo}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        }
+    });
+    
     const response = await fetch(API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json",
