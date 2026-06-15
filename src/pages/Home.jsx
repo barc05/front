@@ -109,7 +109,11 @@ export default function Home() {
                         </Form.Select>
                     </Form.Group>
 
-                    <Button variant="danger" type="submit" className="w-100 fw-bold">
+                    <Button 
+                        variant="danger" 
+                        type="submit" 
+                        className="w-100 fw-bold"
+                        disabled={!reporte.latitud || !reporte.longitud} >
                         ENVIAR REPORTE
                     </Button>
                 </Form>
