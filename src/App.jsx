@@ -6,6 +6,7 @@ import Register from './pages/Register';
 import NavigationBar from './components/Navbar';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Notificaciones from './pages/Notificaciones';
+import Reportes from './pages/Reportes';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/register" element={<Register />}/>
           <Route path="/login" element={<Login />} />
           <Route path="/notificaciones" element={<Notificaciones />} />
+          <Route path="/reportes" element={<Reportes />} />
         </Routes>
       </div>
     </Router>

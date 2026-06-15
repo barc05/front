@@ -37,6 +37,7 @@ const NavigationBar = () => {
                   Notificaciones
                   <Badge bg="danger" className="ms-1">3</Badge>
                 </Nav.Link>
+                <Nav.Link as={Link} to="/reportes">Historial de Reportes</Nav.Link>
 
                 <Button variant="outline-danger" size="sm" onClick={handleLogout} className="ms-3">
                   Cerrar Sesión
