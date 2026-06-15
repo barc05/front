@@ -35,7 +35,6 @@ const NavigationBar = () => {
                 {/* --- NUEVO ENLACE DE NOTIFICACIONES --- */}
                 <Nav.Link as={Link} to="/notificaciones">
                   Notificaciones
-                  <Badge bg="danger" className="ms-1">3</Badge>
                 </Nav.Link>
                 <Nav.Link as={Link} to="/reportes">Historial de Reportes</Nav.Link>
 
