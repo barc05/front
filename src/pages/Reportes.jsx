@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Card, Row, Col, Spinner, Alert } from 'react-bootstrap';
+import { Container, Spinner, Alert } from 'react-bootstrap';
 import { obtenerReportes } from '../service/reporteService';
 
 const Reportes = () => {
@@ -8,27 +8,28 @@ const Reportes = () => {
     const [error, setError] = useState('');
 
     useEffect(() => {
-    const cargarReportes = async () => {
-        try {
-            const data = await obtenerReportes();
-            
-            if (Array.isArray(data)) {
-                setReportes(data.reverse()); 
-            } else {
-                setReportes([]); 
+        const cargarReportes = async () => {
+            try {
+                const data = await obtenerReportes();
+                
+                if (Array.isArray(data)) {
+                    setReportes(data.reverse()); 
+                } else {
+                    setReportes([]); 
+                }
+            } catch (err) {
+                setError(err.message);
+            } finally {
+                setLoading(false);
             }
-        } catch (err) {
-            setError(err.message);
-        } finally {
-            setLoading(false);
-        }
-    };
+        };
 
-    cargarReportes();
-}, []);
+        cargarReportes();
+    }, []);
+
     return (
         <Container className="mt-5">
-            <h2 className="mb-4 text-center">Últimos Reportes de Incendios</h2>
+            <h2 className="reportes-titulo">Historial de Reportes de Incendios</h2>
             
             {error && <Alert variant="danger">{error}</Alert>}
             
@@ -38,38 +39,42 @@ const Reportes = () => {
                     <p>Cargando reportes...</p>
                 </div>
             ) : (
-                <Row>
+                <div className="reportes-lista-contenedor">
                     {reportes.length === 0 ? (
-                        <Col>
-                            <Alert variant="info" className="text-center">
-                                No hay reportes de incendios registrados en el sistema.
-                            </Alert>
-                        </Col>
+                        <Alert variant="info" className="text-center">
+                            No hay reportes de incendios registrados en el sistema.
+                        </Alert>
                     ) : (
                         reportes.map((reporte, index) => (
-                            <Col md={6} lg={4} className="mb-4" key={reporte.id || index}>
-                                <Card className="h-100 shadow-sm border-danger">
-                                    <Card.Header className="bg-danger text-white fw-bold text-uppercase">
-                                         {reporte.tipoIncendio}
-                                    </Card.Header>
-                                    <Card.Body>
-                                        <Card.Text>
-                                            <strong>Latitud:</strong> {reporte.latitud} <br />
-                                            <strong>Longitud:</strong> {reporte.longitud} <br />
-                                            {/* Si tu backend envía la fecha, se renderiza aquí */}
-                                            {reporte.fechaReporte && (
-                                                <>
-                                                    <hr />
-                                                    <strong>Fecha:</strong> {new Date(reporte.fechaReporte).toLocaleString()}
-                                                </>
-                                            )}
-                                        </Card.Text>
-                                    </Card.Body>
-                                </Card>
-                            </Col>
+                            <div className="reporte-item-linea" key={reporte.id || index}>
+                                
+                                {/* Columna 1: Tipo de Incendio */}
+                                <div className="reporte-col-tipo">
+                                    <span className="reporte-badge-rojo">
+                                        {reporte.tipoIncendio}
+                                    </span>
+                                    <small className="reporte-id">ID: {reporte.id || index}</small>
+                                </div>
+
+                                {/* Columna 2: Ubicación / Coordenadas */}
+                                <div className="reporte-col-ubicacion">
+                                    <span><strong>Latitud:</strong> {reporte.latitud}</span>
+                                    <span><strong>Longitud:</strong> {reporte.longitud}</span>
+                                </div>
+
+                                {/* Columna 3: Fecha del Suceso */}
+                                <div className="reporte-col-fecha">
+                                    {reporte.fechaReporte ? (
+                                        <span><strong>Fecha:</strong> {new Date(reporte.fechaReporte).toLocaleString()}</span>
+                                    ) : (
+                                        <span className="sin-fecha">Sin fecha registrada</span>
+                                    )}
+                                </div>
+
+                            </div>
                         ))
                     )}
-                </Row>
+                </div>
             )}
         </Container>
     );
