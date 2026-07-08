@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Spinner, Alert } from 'react-bootstrap';
 import { obtenerReportes } from '../service/reporteService';
+import './Reportes.css';
 
 const Reportes = () => {
     const [reportes, setReportes] = useState([]);
