@@ -266,6 +266,11 @@
     margin-left: 0;
   }
   
+  .col-id::before { content: "ID: "; font-weight: bold; margin-right: 6px; }
+  .col-tipo::before { content: "Tipo: "; font-weight: bold; margin-right: 6px; color: #212529; }
+  .col-coordenadas:nth-child(3)::before { content: "Lat: "; font-weight: bold; margin-right: 6px; }
+  .col-coordenadas:nth-child(4)::before { content: "Lon: "; font-weight: bold; margin-right: 6px; }
+  .col-fecha::before { content: "Fecha: "; font-weight: bold; margin-right: 6px; }
 }
 
 }
