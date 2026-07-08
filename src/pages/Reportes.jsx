@@ -29,7 +29,7 @@ const Reportes = () => {
 
     return (
         <Container className="mt-5">
-            <h2 className="tabla-reportes-titulo">Historial de Reportes</h2>
+            <h2 className="grid-reportes-titulo">Historial de Reportes</h2>
             
             {error && <Alert variant="danger">{error}</Alert>}
             
@@ -39,42 +39,42 @@ const Reportes = () => {
                     <p>Cargando reportes...</p>
                 </div>
             ) : (
-                <div className="tabla-reportes-contenedor">
+                <div className="grid-reportes-tabla">
                     {reportes.length === 0 ? (
-                        <Alert variant="info" className="text-center">
+                        <Alert variant="info" className="text-center m-3">
                             No hay reportes registrados en el sistema.
                         </Alert>
                     ) : (
                         <>
-                            <div className="tabla-reportes-header">
-                                <div className="tabla-celda col-id">ID</div>
-                                <div className="tabla-celda col-tipo">Tipo de Incendio</div>
-                                <div className="tabla-celda col-coordenadas">Latitud</div>
-                                <div className="tabla-celda col-coordenadas">Longitud</div>
-                                <div className="tabla-celda col-fecha">Fecha y Hora</div>
+                            <div className="grid-reportes-fila grid-reportes-header">
+                                <div className="grid-celda">ID</div>
+                                <div className="grid-celda">Tipo de Incendio</div>
+                                <div className="grid-celda">Latitud</div>
+                                <div className="grid-celda">Longitud</div>
+                                <div className="grid-celda">Fecha y Hora</div>
                             </div>
 
-                            {/* Filas de la lista */}
-                            <div className="tabla-reportes-body">
+                            {/* Filas de Datos */}
+                            <div className="grid-reportes-body">
                                 {reportes.map((reporte, index) => (
-                                    <div className="tabla-reportes-fila" key={reporte.id || index}>
-                                        <div className="tabla-celda col-id fw-bold">
+                                    <div className="grid-reportes-fila grid-reportes-item" key={reporte.id || index}>
+                                        <div className="grid-celda fw-bold text-secondary">
                                             #{reporte.id || index}
                                         </div>
-                                        <div className="tabla-celda col-tipo text-uppercase text-danger fw-semibold">
+                                        <div className="grid-celda text-uppercase text-danger fw-semibold">
                                             {reporte.tipoIncendio}
                                         </div>
-                                        <div className="tabla-celda col-coordenadas text-muted">
+                                        <div className="grid-celda text-muted">
                                             {reporte.latitud}
                                         </div>
-                                        <div className="tabla-celda col-coordenadas text-muted">
+                                        <div className="grid-celda text-muted">
                                             {reporte.longitud}
                                         </div>
-                                        <div className="tabla-celda col-fecha text-secondary">
+                                        <div className="grid-celda text-dark">
                                             {reporte.fechaReporte ? (
                                                 new Date(reporte.fechaReporte).toLocaleString()
                                             ) : (
-                                                <span className="text-muted italic">--/--/----</span>
+                                                <span className="text-muted">--/--/----</span>
                                             )}
                                         </div>
                                     </div>

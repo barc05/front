@@ -265,12 +265,76 @@
     padding: 2px 0;
     margin-left: 0;
   }
-  
-  .col-id::before { content: "ID: "; font-weight: bold; margin-right: 6px; }
-  .col-tipo::before { content: "Tipo: "; font-weight: bold; margin-right: 6px; color: #212529; }
-  .col-coordenadas:nth-child(3)::before { content: "Lat: "; font-weight: bold; margin-right: 6px; }
-  .col-coordenadas:nth-child(4)::before { content: "Lon: "; font-weight: bold; margin-right: 6px; }
-  .col-fecha::before { content: "Fecha: "; font-weight: bold; margin-right: 6px; }
+
+
+.grid-reportes-titulo {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #212529;
+  margin-bottom: 24px;
+}
+
+.grid-reportes-tabla {
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.grid-reportes-fila {
+  display: grid;
+  grid-template-columns: 0.5fr 1.5fr 1fr 1fr 1.5fr; 
+  width: 100%;
+  border-bottom: 1px solid #edf2f7;
+}
+
+.grid-reportes-header {
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #dee2e6;
+  font-weight: 600;
+  color: #495057;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+}
+
+.grid-reportes-item {
+  align-items: center;
+  transition: background-color 0.15s ease;
+  font-size: 0.9rem;
+}
+
+.grid-reportes-item:hover {
+  background-color: #f8f9fa; 
+}
+
+/* Celda base */
+.grid-celda {
+  padding: 14px 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; 
+}
+
+@media (max-width: 768px) {
+  .grid-reportes-header {
+    display: none; 
+  }
+
+  .grid-reportes-fila {
+    grid-template-columns: 1fr; 
+    padding: 12px;
+    gap: 4px;
+    border-bottom: 2px solid #dee2e6;
+  }
+
+  .grid-celda {
+    padding: 2px 0;
+  }
+
+}
 }
 
 }
