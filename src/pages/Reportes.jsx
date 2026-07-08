@@ -28,8 +28,8 @@ const Reportes = () => {
     }, []);
 
     return (
-        <Container className="mt-5">
-            <h2 className="grid-reportes-titulo">Historial de Reportes</h2>
+        <Container className="mt-4">
+            <h2 className="admin-tabla-titulo">Historial de Reportes</h2>
             
             {error && <Alert variant="danger">{error}</Alert>}
             
@@ -39,38 +39,38 @@ const Reportes = () => {
                     <p>Cargando reportes...</p>
                 </div>
             ) : (
-                <div className="grid-reportes-tabla">
+                <div className="admin-tabla-wrapper">
                     {reportes.length === 0 ? (
                         <Alert variant="info" className="text-center m-3">
                             No hay reportes registrados en el sistema.
                         </Alert>
                     ) : (
-                        <>
-                            <div className="grid-reportes-fila grid-reportes-header">
-                                <div className="grid-celda">ID</div>
-                                <div className="grid-celda">Tipo de Incendio</div>
-                                <div className="grid-celda">Latitud</div>
-                                <div className="grid-celda">Longitud</div>
-                                <div className="grid-celda">Fecha y Hora</div>
+                        <div className="admin-grid-container">
+                            
+                            <div className="admin-grid-header">
+                                <div className="admin-grid-celda">ID</div>
+                                <div className="admin-grid-celda">Tipo de Incendio</div>
+                                <div className="admin-grid-celda">Latitud</div>
+                                <div className="admin-grid-celda">Longitud</div>
+                                <div className="admin-grid-celda">Fecha y Hora</div>
                             </div>
 
-                            {/* Filas de Datos */}
-                            <div className="grid-reportes-body">
+                            <div className="admin-grid-body">
                                 {reportes.map((reporte, index) => (
-                                    <div className="grid-reportes-fila grid-reportes-item" key={reporte.id || index}>
-                                        <div className="grid-celda fw-bold text-secondary">
+                                    <div className="admin-grid-fila" key={reporte.id || index}>
+                                        <div className="admin-grid-celda celda-id">
                                             #{reporte.id || index}
                                         </div>
-                                        <div className="grid-celda text-uppercase text-danger fw-semibold">
+                                        <div className="admin-grid-celda celda-tipo">
                                             {reporte.tipoIncendio}
                                         </div>
-                                        <div className="grid-celda text-muted">
+                                        <div className="admin-grid-celda celda-coordenada">
                                             {reporte.latitud}
                                         </div>
-                                        <div className="grid-celda text-muted">
+                                        <div className="admin-grid-celda celda-coordenada">
                                             {reporte.longitud}
                                         </div>
-                                        <div className="grid-celda text-dark">
+                                        <div className="admin-grid-celda celda-fecha">
                                             {reporte.fechaReporte ? (
                                                 new Date(reporte.fechaReporte).toLocaleString()
                                             ) : (
@@ -80,7 +80,8 @@ const Reportes = () => {
                                     </div>
                                 ))}
                             </div>
-                        </>
+
+                        </div>
                     )}
                 </div>
             )}

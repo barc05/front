@@ -267,74 +267,96 @@
   }
 
 
-.grid-reportes-titulo {
-  font-size: 1.6rem;
-  font-weight: 700;
+/* ==========================================
+   ESTILO STANDARIZADO: GRID ADMINISTRATIVO
+   ========================================== */
+
+.admin-tabla-titulo {
+  font-size: 1.5rem;
+  font-weight: 600;
   color: #212529;
   margin-bottom: 24px;
 }
 
-.grid-reportes-tabla {
+/* Envoltura externa para control de bordes generales */
+.admin-tabla-wrapper {
   width: 100%;
-  background: #ffffff;
+  background-color: #ffffff;
   border: 1px solid #dee2e6;
   border-radius: 6px;
   overflow: hidden;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
-.grid-reportes-fila {
-  display: grid;
-  grid-template-columns: 0.5fr 1.5fr 1fr 1fr 1.5fr; 
+.admin-grid-container {
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  border-bottom: 1px solid #edf2f7;
 }
 
-.grid-reportes-header {
+/* Plantilla estricta de visualización en 5 columnas: 
+   ID (10%), Tipo (30%), Lat (20%), Lon (20%), Fecha (20%) */
+.admin-grid-header, 
+.admin-grid-fila {
+  display: grid !important;
+  grid-template-columns: 0.5fr 1.5fr 1fr 1fr 1.5fr !important;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Encabezado gris de la tabla */
+.admin-grid-header {
   background-color: #f8f9fa;
   border-bottom: 2px solid #dee2e6;
-  font-weight: 600;
   color: #495057;
+  font-weight: 600;
   text-transform: uppercase;
   font-size: 0.8rem;
   letter-spacing: 0.5px;
 }
 
-.grid-reportes-item {
-  align-items: center;
+/* Filas de datos del historial */
+.admin-grid-fila {
+  border-bottom: 1px solid #edf2f7;
+  background-color: #ffffff;
   transition: background-color 0.15s ease;
+}
+
+.admin-grid-fila:hover {
+  background-color: #f8f9fa;
+}
+
+/* Celda de datos genérica */
+.admin-grid-celda {
+  padding: 12px 16px;
   font-size: 0.9rem;
-}
-
-.grid-reportes-item:hover {
-  background-color: #f8f9fa; 
-}
-
-/* Celda base */
-.grid-celda {
-  padding: 14px 16px;
+  display: flex;
+  align-items: center;
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis; 
+  text-overflow: ellipsis;
 }
 
-@media (max-width: 768px) {
-  .grid-reportes-header {
-    display: none; 
-  }
-
-  .grid-reportes-fila {
-    grid-template-columns: 1fr; 
-    padding: 12px;
-    gap: 4px;
-    border-bottom: 2px solid #dee2e6;
-  }
-
-  .grid-celda {
-    padding: 2px 0;
-  }
-
-}
+/* Estilos de tipografía para cada columna específica */
+.celda-id {
+  color: #6c757d;
+  font-weight: 600;
 }
 
+.celda-tipo {
+  text-transform: uppercase;
+  color: #dc3545;
+  font-weight: 600;
+}
+
+.celda-coordenada {
+  color: #495057;
+}
+
+.celda-fecha {
+  color: #212529;
+}
+
+
+}
 }
