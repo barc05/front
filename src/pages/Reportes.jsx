@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Card, Row, Col, Spinner, Alert } from 'react-bootstrap';
+import { Container, Spinner, Alert } from 'react-bootstrap';
 import { obtenerReportes } from '../service/reporteService';
+import '../style/Reportes.css';
 
 const Reportes = () => {
     const [reportes, setReportes] = useState([]);
@@ -8,27 +9,28 @@ const Reportes = () => {
     const [error, setError] = useState('');
 
     useEffect(() => {
-    const cargarReportes = async () => {
-        try {
-            const data = await obtenerReportes();
-            
-            if (Array.isArray(data)) {
-                setReportes(data.reverse()); 
-            } else {
-                setReportes([]); 
+        const cargarReportes = async () => {
+            try {
+                const data = await obtenerReportes();
+                
+                if (Array.isArray(data)) {
+                    setReportes(data.reverse()); 
+                } else {
+                    setReportes([]); 
+                }
+            } catch (err) {
+                setError(err.message);
+            } finally {
+                setLoading(false);
             }
-        } catch (err) {
-            setError(err.message);
-        } finally {
-            setLoading(false);
-        }
-    };
+        };
 
-    cargarReportes();
-}, []);
+        cargarReportes();
+    }, []);
+
     return (
-        <Container className="mt-5">
-            <h2 className="mb-4 text-center">Últimos Reportes de Incendios</h2>
+        <Container className="mt-4">
+            <h2 className="admin-tabla-titulo">Historial de Reportes</h2>
             
             {error && <Alert variant="danger">{error}</Alert>}
             
@@ -38,38 +40,51 @@ const Reportes = () => {
                     <p>Cargando reportes...</p>
                 </div>
             ) : (
-                <Row>
+                <div className="admin-tabla-wrapper">
                     {reportes.length === 0 ? (
-                        <Col>
-                            <Alert variant="info" className="text-center">
-                                No hay reportes de incendios registrados en el sistema.
-                            </Alert>
-                        </Col>
+                        <Alert variant="info" className="text-center m-3">
+                            No hay reportes registrados en el sistema.
+                        </Alert>
                     ) : (
-                        reportes.map((reporte, index) => (
-                            <Col md={6} lg={4} className="mb-4" key={reporte.id || index}>
-                                <Card className="h-100 shadow-sm border-danger">
-                                    <Card.Header className="bg-danger text-white fw-bold text-uppercase">
-                                         {reporte.tipoIncendio}
-                                    </Card.Header>
-                                    <Card.Body>
-                                        <Card.Text>
-                                            <strong>Latitud:</strong> {reporte.latitud} <br />
-                                            <strong>Longitud:</strong> {reporte.longitud} <br />
-                                            {/* Si tu backend envía la fecha, se renderiza aquí */}
-                                            {reporte.fechaReporte && (
-                                                <>
-                                                    <hr />
-                                                    <strong>Fecha:</strong> {new Date(reporte.fechaReporte).toLocaleString()}
-                                                </>
+                        <div className="admin-grid-container">
+                            
+                            <div className="admin-grid-header">
+                                <div className="admin-grid-celda">ID</div>
+                                <div className="admin-grid-celda">Tipo de Incendio</div>
+                                <div className="admin-grid-celda">Latitud</div>
+                                <div className="admin-grid-celda">Longitud</div>
+                                <div className="admin-grid-celda">Fecha y Hora</div>
+                            </div>
+
+                            <div className="admin-grid-body">
+                                {reportes.map((reporte, index) => (
+                                    <div className="admin-grid-fila" key={reporte.id || index}>
+                                        <div className="admin-grid-celda celda-id">
+                                            #{reporte.id || index}
+                                        </div>
+                                        <div className="admin-grid-celda celda-tipo">
+                                            {reporte.tipoIncendio}
+                                        </div>
+                                        <div className="admin-grid-celda celda-coordenada">
+                                            {reporte.latitud}
+                                        </div>
+                                        <div className="admin-grid-celda celda-coordenada">
+                                            {reporte.longitud}
+                                        </div>
+                                        <div className="admin-grid-celda celda-fecha">
+                                            {reporte.fechaReporte ? (
+                                                new Date(reporte.fechaReporte).toLocaleString()
+                                            ) : (
+                                                <span className="text-muted">--/--/----</span>
                                             )}
-                                        </Card.Text>
-                                    </Card.Body>
-                                </Card>
-                            </Col>
-                        ))
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+
+                        </div>
                     )}
-                </Row>
+                </div>
             )}
         </Container>
     );

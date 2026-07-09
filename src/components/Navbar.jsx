@@ -6,10 +6,12 @@ const NavigationBar = () => {
   const navigate = useNavigate();
 
   const token = localStorage.getItem('token'); 
+  const rol = localStorage.getItem('rol');
 
   const handleLogout = () => {
     localStorage.removeItem('token'); 
     localStorage.removeItem('correo');
+    localStorage.removeItem('rol');
     navigate('/login'); 
   };
 
@@ -32,11 +34,13 @@ const NavigationBar = () => {
               </>
             ) : (
               <>
-                {/* --- NUEVO ENLACE DE NOTIFICACIONES --- */}
-                <Nav.Link as={Link} to="/notificaciones">
-                  Notificaciones
-                  <Badge bg="danger" className="ms-1">3</Badge>
-                </Nav.Link>
+                {rol === 'FUNCIONARIO' && (
+                  <Nav.Link as={Link} to="/enviar-alerta" style={{ color: '#ffc107', fontWeight: 'bold' }}>
+                     Enviar Alerta Masiva
+                  </Nav.Link>
+                )}
+
+                <Nav.Link as={Link} to="/notificaciones">Notificaciones</Nav.Link>
                 <Nav.Link as={Link} to="/reportes">Historial de Reportes</Nav.Link>
 
                 <Button variant="outline-danger" size="sm" onClick={handleLogout} className="ms-3">

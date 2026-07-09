@@ -7,6 +7,7 @@ import NavigationBar from './components/Navbar';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Notificaciones from './pages/Notificaciones';
 import Reportes from './pages/Reportes';
+import AlertasFuncionario from './pages/AlertasFuncionario';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/notificaciones" element={<Notificaciones />} />
           <Route path="/reportes" element={<Reportes />} />
+          <Route path="/enviar-alerta" element={<AlertasFuncionario />} />
         </Routes>
       </div>
     </Router>
