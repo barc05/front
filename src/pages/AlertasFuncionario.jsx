@@ -8,7 +8,7 @@ const AlertasFuncionario = () => {
   const [status, setStatus] = useState({ type: '', text: '' });
 
 
-  const GATEWAY_URL = 'https://api-gateway-1w1b.onrender.com/api/reportes/alertas';
+  const GATEWAY_URL = 'https://api-gateway-1w1b.onrender.com/api/alertas/difundir';
 
   const handleSubmit = async (e) => {
     e.preventDefault();
