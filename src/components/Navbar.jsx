@@ -36,7 +36,7 @@ const NavigationBar = () => {
               <>
                 {rol === 'FUNCIONARIO' && (
                   <Nav.Link as={Link} to="/enviar-alerta" style={{ color: '#ffc107', fontWeight: 'bold' }}>
-                    ⚠️ Enviar Alerta Masiva
+                     Enviar Alerta Masiva
                   </Nav.Link>
                 )}
 
