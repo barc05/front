@@ -35,6 +35,7 @@ export default function Login() {
 
             if (response.ok) {
                 const data = await response.json();
+                console.log("ESTO RESPONDE EL BACKEND:", data);
                 // 3. GUARDAR EL TOKEN VIP
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('correo', data.correo);
