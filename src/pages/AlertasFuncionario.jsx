@@ -30,16 +30,16 @@ const AlertasFuncionario = () => {
       });
 
       if (response.ok) {
-        setStatus({ type: 'success', text: '✅ ¡Alerta difundida masivamente con éxito al correo alertas.incendio@gmail.com!' });
+        setStatus({ type: 'success', text: '¡Alerta difundida masivamente con éxito al correo alertas.incendio@gmail.com!' });
         setAsunto('');
         setMensaje('');
       } else {
         const errText = await response.text();
-        setStatus({ type: 'danger', text: `❌ Error en el servidor: ${errText || 'No se pudo procesar.'}` });
+        setStatus({ type: 'danger', text: `Error en el servidor: ${errText || 'No se pudo procesar.'}` });
       }
     } catch (error) {
       console.error(error);
-      setStatus({ type: 'danger', text: '❌ No se pudo establecer conexión con el API Gateway.' });
+      setStatus({ type: 'danger', text: 'No se pudo establecer conexión con el API Gateway.' });
     } finally {
       setLoading(false);
     }
@@ -48,7 +48,7 @@ const AlertasFuncionario = () => {
   return (
     <Container className="mt-5" style={{ maxWidth: '600px' }}>
       <div className="p-4 shadow-sm rounded bg-light border">
-        <h2 className="mb-3 text-dark">📢 Panel de Difusión de Emergencias</h2>
+        <h2 className="mb-3 text-dark">Panel de Difusión de Emergencias</h2>
         <p className="text-muted">Espacio exclusivo para funcionarios autorizados de Bomberos o CONAF.</p>
         
         {status.text && <Alert variant={status.type}>{status.text}</Alert>}
@@ -78,7 +78,7 @@ const AlertasFuncionario = () => {
           </Form.Group>
 
           <Button variant="danger" type="submit" className="w-100 py-2" disabled={loading}>
-            {loading ? '⏳ Procesando envío masivo...' : 'Difundir Alerta por Correo'}
+            {loading ? 'Procesando envío masivo...' : 'Difundir Alerta por Correo'}
           </Button>
         </Form>
       </div>
