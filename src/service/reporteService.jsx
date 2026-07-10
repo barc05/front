@@ -31,10 +31,12 @@ export const enviarReporteIncendio = async (reporte) => {
     try {
         return JSON.parse(textoRespuesta); 
     } catch (e) {
-        return { mensaje: textoRespuesta }; 
+        return { 
+            id: Date.now(), 
+            status: "SUCCESS",
+            mensaje: textoRespuesta 
+        }; 
     }
-
-    return await response.json();
 };
 
 export const obtenerReportes = async () => {
