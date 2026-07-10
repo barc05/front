@@ -26,6 +26,14 @@ export const enviarReporteIncendio = async (reporte) => {
         throw new Error("Error al guardar el reporte");
     }
 
+    const textoRespuesta = await response.text();
+
+    try {
+        return JSON.parse(textoRespuesta); 
+    } catch (e) {
+        return { mensaje: textoRespuesta }; 
+    }
+
     return await response.json();
 };
 
