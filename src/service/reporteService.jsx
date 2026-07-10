@@ -9,7 +9,8 @@ export const enviarReporteIncendio = async (reporte) => {
         latitud: parseFloat(reporte.latitud),
         longitud: parseFloat(reporte.longitud),
         tipoIncendio: reporte.tipoIncendio,
-        correoUsuario: correo
+        correoUsuario: correo,
+        usuarioId: userId
     };
 
     const response = await fetch(API_URL, {
